@@ -1,21 +1,28 @@
-const http = require('http');
 
-http.createServer((req,res)=>{
-    if(req.method==="GET" && req.url==="/movies"){
-        res.writeHead(200);
-        res.end("All Movies Data in JSON format from Mongo DB");
-    }
-    else if(req.method==="GET" && req.url==="/genres"){
-        res.writeHead(200);
-        res.end("All Genres  Data in JSON format from Mongo DB");
-    }
-    else if(req.method==="GET" && req.url==="/artists"){
-        res.writeHead(200);
-        res.end("All Artists Data in JSON format from Mongo DB");
-    }
+const express = require("express");
+const cors = require('cors');
+const PORT = 9000;
 
-}).listen(9000);
+const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
+app.get("/", (req, res)=>{
+  res.json({message : "Welcome to Upgrad Movie booking application development."});
+})
+
+// // movie routes
+// require("./routes/movie.routes")(app);
+// // genre routes
+// require("./routes/genre.routes")(app);
+// // artist routes
+// require("./routes/artist.routes")(app);
+// // user routes
+// require("./routes/user.routes")(app);
+
+app.listen(PORT, ()=>console.log(`Server has started at port ${PORT}`))
 // const db = require("./models");
 
 // const main = (async()=>{
